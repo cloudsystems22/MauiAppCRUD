@@ -15,4 +15,4 @@
 	<li>CROSS Platform Android e Windows Desktop </li>
 </ul>
 
-<img src="https://github.com/cloudsystems22/MauiAppCRUD/blob/main/MauiAppCRUD/AppCrud.png" />
+<img src="https://github.com/cloudsystems22/MauiAppCRUD/blob/main/AppCrud.png" />
