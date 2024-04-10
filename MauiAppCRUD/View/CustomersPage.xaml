@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiAppCRUD.ViewModel"
+             xmlns:model="clr-namespace:MauiAppCRUD.Model"
+             x:Class="MauiAppCRUD.View.CustomersPage"
+             Title="Consulta de Clientes">
+
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Novo" Command="{Binding NewCustomerCommand}"/>
+    </ContentPage.ToolbarItems>
+    <VerticalStackLayout 
+        Padding="30" 
+        Spacing="25">
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+
+        <!--<Button
+            x:Name="CounterBtn"
+            Text="{Binding Text}" 
+            SemanticProperties.Hint="Counts the number of times you click"
+            Command="{Binding CountClicked}"
+            HorizontalOptions="Fill" />-->
+
+        <!--<ListView FlexLayout.Grow="1" ItemsSource="{Binding Customers}">
+            <ListView.Header>
+                <VerticalStackLayout 
+                    Padding="5">
+                    <Label Text="Clientes" TextColor="Black"/>
+                </VerticalStackLayout>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type model:Customer}">
+                    <TextCell Text="{Binding Name}" Detail="{Binding Phone}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>-->
+
+        <!--<CollectionView ItemsSource="{Binding Customers}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="{x:Type model:Customer}">
+                    <Frame Margin="5,5,5,0">
+                        <Label Text="{Binding Name}" FontSize="18"/>
+                        --><!--<Frame.GestureRecognizers>
+                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CustomerViewModel}}, Path=DeleteCommand}"></TapGestureRecognizer>
+                        </Frame.GestureRecognizers>--><!--
+                    </Frame>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>-->
+        <CollectionView Margin="20"
+                ItemsSource="{Binding Customers}"
+                ItemTemplate="{StaticResource CustomerGridMobileTemplate}"
+                SelectionMode="Single" />
+
+    </VerticalStackLayout>
+</ContentPage>

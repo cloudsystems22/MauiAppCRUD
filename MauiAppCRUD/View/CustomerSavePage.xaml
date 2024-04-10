@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiAppCRUD.ViewModel"
+             x:Class="MauiAppCRUD.View.CustomerSavePage"
+             x:DataType="vm:CustomerViewModel"
+             Title="{Binding Name}">
+    
+    <VerticalStackLayout 
+        Padding="30" 
+        Spacing="25">
+        <Label 
+            Text="Welcome to .NET MAUI!"
+            VerticalOptions="Center" 
+            HorizontalOptions="Center" />
+        <VerticalStackLayout>
+            <Entry x:Name="CustomerName"
+                   Text="{Binding Customer.Name}"
+                   ClearButtonVisibility="WhileEditing"
+                   Placeholder="Nome:" />
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Entry x:Name="CustomerLastName"
+                   Text="{Binding Customer.LastName}"
+                   ClearButtonVisibility="WhileEditing"
+                   Placeholder="Sobrenome:" />
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Entry x:Name="CustomerAge"
+                   Text="{Binding Customer.Age}"
+                   ClearButtonVisibility="WhileEditing"
+                   Placeholder="Idade:" />
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Entry x:Name="CustomerAddress"
+                   Text="{Binding Customer.Address}"
+                   ClearButtonVisibility="WhileEditing"
+                   Placeholder="Endereço:" />
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Entry x:Name="CustomerPhone"
+                   Text="{Binding Customer.Phone}"
+                   ClearButtonVisibility="WhileEditing"
+                   Placeholder="Telefone:" />
+        </VerticalStackLayout>
+        <VerticalStackLayout>
+            <Button
+                x:Name="CounterBtn"
+                Text="Save" 
+                SemanticProperties.Hint="Click para salvar"
+                Command="{Binding SaveCommand}"
+                HorizontalOptions="Fill" />
+        </VerticalStackLayout>
+    </VerticalStackLayout>
+</ContentPage>

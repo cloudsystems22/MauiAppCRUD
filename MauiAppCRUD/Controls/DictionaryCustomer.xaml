@@ -1,0 +1,100 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ResourceDictionary xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:MauiAppCRUD.ViewModel"
+             x:Class="MauiAppCRUD.Controls.DictionaryCustomer">
+    <Style TargetType="StackLayout">
+        <Setter Property="Spacing"
+             Value="6" />
+    </Style>
+    <Style TargetType="Grid">
+        <Setter Property="RowSpacing"
+             Value="6" />
+        <Setter Property="ColumnSpacing"
+             Value="6" />
+    </Style>
+
+    <DataTemplate x:Key="CustomerGridTemplate">
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Text="{Binding Id}" />
+            <Label Grid.Column="1"
+                   Text="{Binding Name}"
+                   FontAttributes="Bold" />
+            <Label Grid.Column="2"
+                   Text="{Binding LastName}" />
+            <Label Grid.Column="3"
+                   Text="{Binding Age}" />
+            <Label Grid.Column="4"
+                   Text="{Binding Address}" />
+            <Label Grid.Column="5"
+                   Text="{Binding Phone}" />
+            <Button 
+                Grid.Column="6"
+                x:Name="EditBtn"
+                Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CustomerViewModel}}, Path=SelectionChangedCommand}"
+                CommandParameter="{Binding Id}"
+                Text="Edit" />
+            <Button 
+                Grid.Column="7"
+                x:Name="TrashBtn"
+                Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CustomerViewModel}}, Path=DeleteCommand}"
+                CommandParameter="{Binding Id}"
+                Text="Delete"  />
+
+        </Grid>
+    </DataTemplate>
+
+    <DataTemplate x:Key="CustomerGridMobileTemplate">
+        <Grid Padding="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Grid.Row="0"
+                   Text="{Binding Name}"
+                   FontAttributes="Bold" />
+            <Label Grid.Column="0"
+                   Grid.Row="1"
+                   Text="{Binding LastName}"
+                   FontAttributes="Bold" />
+            <Button 
+                Grid.Column="1"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                x:Name="EditBtn"
+                Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CustomerViewModel}}, Path=SelectionChangedCommand}"
+                CommandParameter="{Binding Id}"
+                Text="Edit" />
+            <Button 
+                Grid.Column="2"
+                Grid.Row="0"
+                Grid.RowSpan="2"
+                x:Name="TrashBtn"
+                Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CustomerViewModel}}, Path=DeleteCommand}"
+                CommandParameter="{Binding Id}"
+                Text="Delete"  />
+
+        </Grid>
+    </DataTemplate>
+
+</ResourceDictionary>
