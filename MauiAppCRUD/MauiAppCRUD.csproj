@@ -80,9 +80,6 @@
 	  <MauiXaml Update="Controls\DictionaryCustomer.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
-	  <MauiXaml Update="View\CustomerDetailPage.xaml">
-	    <Generator>MSBuild:Compile</Generator>
-	  </MauiXaml>
 	  <MauiXaml Update="View\CustomerSavePage.xaml">
 	    <Generator>MSBuild:Compile</Generator>
 	  </MauiXaml>
