@@ -3,13 +3,20 @@ using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using MauiAppCRUD.Data;
 using MauiAppCRUD.Model;
-using MvvmHelpers;
+using System.Collections.ObjectModel;
 
 namespace MauiAppCRUD.ViewModel
 {
     public partial class CustomerViewModel : CommunityToolkit.Mvvm.ComponentModel.ObservableObject
     {
-        public ObservableRangeCollection<Customer> Customers { get; set; } = new();
+        private ObservableCollection<Customer> _customers = new ObservableCollection<Customer>();
+        public ObservableCollection<Customer> Customers 
+        { 
+            get => _customers;
+            set => SetProperty(ref _customers, value);
+        }
+
+        public ObservableCollection<Customer> itemCustomers = new ObservableCollection<Customer>();
 
         [ObservableProperty]
         public Customer customer = new();
@@ -22,13 +29,25 @@ namespace MauiAppCRUD.ViewModel
         public CustomerViewModel(ICustomerRepository repository)
         {
             _repository = repository;
-            LoadCustomers();
         }
-
 
         [ObservableProperty]
         public string _name = "Novo Cliente:";
 
+        [RelayCommand]
+        public void Search(string searchBar)
+        {
+
+            if (string.IsNullOrEmpty(searchBar))
+            {
+                Customers = new ObservableCollection<Customer>(itemCustomers);
+                return;
+            }
+
+            var customers = _customers.Where(c => c.Name.StartsWith(searchBar, StringComparison.InvariantCultureIgnoreCase));
+            Customers = new ObservableCollection<Customer>(customers);
+
+        }
 
         [RelayCommand]
         public async Task NewCustomer()
@@ -41,17 +60,25 @@ namespace MauiAppCRUD.ViewModel
         [RelayCommand]
         public async Task Save()
         {
-            int result = await InsertOrUpdate();
-            if (result > 0)
+            if(Validate(customer))
             {
-                CreateToast("Sucesso!");
-                await Shell.Current.GoToAsync("..");
+                int result = await InsertOrUpdate();
+                if (result > 0)
+                {
+                    CreateToast("Sucesso!");
+                    await Shell.Current.GoToAsync("..");
+                }
+                else
+                {
+                    CreateToast("Erro!");
+                    await Shell.Current.GoToAsync("..");
+                }
             }
             else
             {
-                CreateToast("Erro!");
-                await Shell.Current.GoToAsync("..");
+                CreateToast("Favor informar pelo menos Nome e Fone!");
             }
+            
         }
 
         [RelayCommand]
@@ -65,6 +92,30 @@ namespace MauiAppCRUD.ViewModel
             LoadCustomers();
         }
 
+        [RelayCommand]
+        private async Task LoadCustomers()
+        {
+            _id = string.Empty;
+            _name = "Novo Cliente";
+            var customers = await _repository.GetCustomerAsync();
+            itemCustomers = new ObservableCollection<Customer>(customers);
+
+            if (Customers.Count > 0)
+                Customers.Clear();
+
+            if (customers.Count > 0)
+                Customers = new ObservableCollection<Customer>(customers);
+        }
+
+        [RelayCommand]
+        private async Task SelectionChanged(string id)
+        {
+            Customer = await GetCustomerByIdAsync(id);
+            _id = id;
+            _name = customer.Name;
+            await Shell.Current.GoToAsync("customersave");
+        }
+
         public async Task<Customer> GetCustomerByIdAsync(string id)
         {
             return await _repository.GetCustomerByIdAsync(id);
@@ -73,28 +124,6 @@ namespace MauiAppCRUD.ViewModel
         public async Task<int> InsertOrUpdate()
         {
             return await _repository.InsertOrUpdateCustomerAsync(Customer);
-        }
-
-
-        [RelayCommand]
-        private async Task LoadCustomers()
-        {
-            _id = string.Empty;
-            var customers = await _repository.GetCustomerAsync();
-
-            if (Customers.Count > 0)
-                Customers.Clear();
-
-            if (customers.Count > 0)
-                Customers.AddRange(customers);
-        }
-
-        [RelayCommand]
-        private async Task SelectionChanged(string id)
-        {
-            Customer = await GetCustomerByIdAsync(id);
-            _id = id;
-            await Shell.Current.GoToAsync("customersave");
         }
 
         private async void CreateToast(string message)
@@ -106,6 +135,17 @@ namespace MauiAppCRUD.ViewModel
             var toast = Toast.Make(message, duration, fontSize);
 
             await toast.Show(cts.Token);
+        }
+
+        private bool Validate(Customer customer)
+        {
+            if(!string.IsNullOrEmpty(customer.Name) &&
+                !string.IsNullOrEmpty(customer.Phone))
+            {
+                return true;
+            }
+            
+            return false;
         }
 
     }

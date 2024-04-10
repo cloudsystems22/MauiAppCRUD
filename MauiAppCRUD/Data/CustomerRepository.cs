@@ -33,7 +33,7 @@ namespace MauiAppCRUD.Data
         public async Task<List<Customer>> GetCustomerNameAsync(string name)
         {
             await Init();
-            return await Database.Table<Customer>().Where(t => t.Name.Contains(name.ToUpper())).ToListAsync();
+            return await Database.Table<Customer>().Where(t => t.Name.Contains(name)).ToListAsync();
         }
 
         public async Task<int> InsertOrUpdateCustomerAsync(Customer customer)

@@ -3,57 +3,32 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:vm="clr-namespace:MauiAppCRUD.ViewModel"
              xmlns:model="clr-namespace:MauiAppCRUD.Model"
-             x:Class="MauiAppCRUD.View.CustomersPage"
-             Title="Consulta de Clientes">
+             x:Class="MauiAppCRUD.View.CustomersPage">
 
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Novo" Command="{Binding NewCustomerCommand}"/>
-    </ContentPage.ToolbarItems>
-    <VerticalStackLayout 
-        Padding="30" 
-        Spacing="25">
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-
-        <!--<Button
-            x:Name="CounterBtn"
-            Text="{Binding Text}" 
-            SemanticProperties.Hint="Counts the number of times you click"
-            Command="{Binding CountClicked}"
-            HorizontalOptions="Fill" />-->
-
-        <!--<ListView FlexLayout.Grow="1" ItemsSource="{Binding Customers}">
-            <ListView.Header>
-                <VerticalStackLayout 
-                    Padding="5">
-                    <Label Text="Clientes" TextColor="Black"/>
-                </VerticalStackLayout>
-            </ListView.Header>
-            <ListView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type model:Customer}">
-                    <TextCell Text="{Binding Name}" Detail="{Binding Phone}"/>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>-->
-
-        <!--<CollectionView ItemsSource="{Binding Customers}">
-            <CollectionView.ItemTemplate>
-                <DataTemplate x:DataType="{x:Type model:Customer}">
-                    <Frame Margin="5,5,5,0">
-                        <Label Text="{Binding Name}" FontSize="18"/>
-                        --><!--<Frame.GestureRecognizers>
-                            <TapGestureRecognizer CommandParameter="{Binding .}" Command="{Binding Source={x:RelativeSource AncestorType={x:Type vm:CustomerViewModel}}, Path=DeleteCommand}"></TapGestureRecognizer>
-                        </Frame.GestureRecognizers>--><!--
-                    </Frame>
-                </DataTemplate>
-            </CollectionView.ItemTemplate>
-        </CollectionView>-->
-        <CollectionView Margin="20"
+    <StackLayout Margin="20">
+        <SearchBar x:Name="searchBar"
+                   SearchCommand="{Binding SearchCommand}"
+                   SearchCommandParameter="{Binding Source={x:Reference searchBar}, Path=Text}"
+                   TextChanged="SearchBar_TextChanged"
+                   Placeholder="Pesquisar..." />
+        
+        <CollectionView
+                x:Name="CollectionCustomers"
+                Margin="10"
                 ItemsSource="{Binding Customers}"
                 ItemTemplate="{StaticResource CustomerGridMobileTemplate}"
-                SelectionMode="Single" />
+                SelectionMode="Single"/>
 
-    </VerticalStackLayout>
+        <ImageButton 
+            Source="pluscircle.png"
+            HorizontalOptions="End"
+            VerticalOptions="EndAndExpand" 
+            HeightRequest="64"
+            Command="{Binding NewCustomerCommand}"
+            WidthRequest="64"/>
+
+
+    </StackLayout>
+   
+
 </ContentPage>

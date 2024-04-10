@@ -5,11 +5,12 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
     xmlns:local="clr-namespace:MauiAppCRUD"
     xmlns:view="clr-namespace:MauiAppCRUD.View"
+    BackgroundColor="{StaticResource Primary}"
     Shell.FlyoutBehavior="Disabled"
     Title="MauiAppCRUD">
 
     <ShellContent
-        Title="Home"
+        Title="Clientes"
         ContentTemplate="{DataTemplate view:CustomersPage}"
         Route="MainPage" />
 
