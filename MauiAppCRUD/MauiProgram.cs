@@ -14,7 +14,6 @@ namespace MauiAppCRUD
             builder.Services.AddTransient<ICustomerRepository, CustomerRepository>();
             builder.Services.AddSingleton<ICustomerRepository, CustomerRepository>();
             builder.Services.AddSingleton<CustomersPage>();
-            builder.Services.AddSingleton<CustomerDetailPage>();
             builder.Services.AddSingleton<CustomerSavePage>();
             builder.Services.AddSingleton<CustomerViewModel>();
             builder

@@ -14,7 +14,6 @@ namespace MauiAppCRUD
         void Register()
         {
             Routes.Add("customers", typeof(CustomersPage));
-            Routes.Add("customerdetail", typeof(CustomerDetailPage));
             Routes.Add("customersave", typeof(CustomerSavePage));
 
             foreach (var item in Routes)
